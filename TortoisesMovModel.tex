@@ -201,6 +201,22 @@ Table~2 lists the values of the exponents.
 \end{figure}
 
 
+\section*{Bouts of walking behaviour}
+
+We have shown that the power-law distribution of displacements can be explained by assuming the tortoise performs random walks with constant speed interspersed with resting periods, provided the duration of the walking bouts is distributed with a power-law, or Pareto, distribution,
+$$  P_b(t) = \frac{\alpha-1}{t^\alpha}, \qquad t\ge1, $$
+where \(P_b(t)\,dt\) is the probability that a bout of walking will last from time \(t=0\) to a time between \(t\) and \(t+dt\).
+
+This behaviour can also be explained by considering the transition probability from walking to resting, \(\gamma(t)\).  The transition probability is the probability that the tortoise will stop walking at a time between \(t\) and \(t+dt\), given that it is walking at time \(t\), i.e.
+$$ \gamma(t) = \frac{P_b(t)}{\text{P. of walking at time $t$}} = \frac{P_b(t)}{1 - \text{P. of having stopped between $0$ and $t$}} = \frac{P_b(t)}{1-\int_0^t\!\!P_b(t')\,dt´} . $$
+Since \(\int_1^t (\alpha-1) t^{-\alpha} = 1 - t^{1-\alpha}\), we obtain
+$$ \gamma(t) = \frac{\alpha-1}{t},  t\ge1, $$
+i.e.$\backslash$ the probability that the tortoise will decide to rest gets smaller the longer it has been walking.
+
+Power-law-distributed bouts of behaviour have been discussed before  \cite{falligant2024}, \cite{gomez2026}, but not everyone seems to agree on power laws \cite{breed2015}.
+
+
+
 \section*{Supplement}
 By testing a different temporal interval, $\Delta t = 30\,\mathrm{min}$, the exponent does not change, nor is any improvement observed in $P(d)$ (Figure \ref{fig23}).
 
