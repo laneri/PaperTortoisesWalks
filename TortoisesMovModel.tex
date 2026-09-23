@@ -237,10 +237,10 @@ Where P(f(t+\delta t)|f(t)) is the conditional probability of being in the same 
 This conditional probability can be expressed as:
 
 \begin{equation}
-    P(f(t+\delta t)|f(t)) = P(f(t) \cap f(t+\delta t))\frac{P(f(t+\delta t))}{P(f(t))}
+    P(f(t+\delta t)|f(t)) = P(f(t)|f(t+\delta t))\frac{P(f(t+\delta t))}{P(f(t))}
 \end{equation}
 
-in which $P(f(t) \cap f(t+\delta t))=1$ and $f(t)=A t^{-\alpha}$ with $A$ a normalization constant. $P(f(t))$ can be calculates as follows:
+in which $P(f(t)|f(t+\delta t))=1$ and $f(t)=A t^{-\alpha}$ with $A$ a normalization constant. $P(f(t))$ can be calculates as follows:
 
 \begin{equation}
     P(f(t))=\int_{t}^{t_{\text{max}}}f(t')\,dt'=\frac{A*\left(t_{\text{max}}^{1-\alpha}-t^{1-\alpha}\right)}{1-\alpha}
