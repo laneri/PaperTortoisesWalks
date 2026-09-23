@@ -215,6 +215,41 @@ i.e.$\backslash$ the probability that the tortoise will decide to rest gets smal
 
 Power-law-distributed bouts of behaviour have been discussed before  \cite{falligant2024}, \cite{gomez2026}, but not everyone seems to agree on power laws \cite{breed2015}.
 
+\section*{Transition rate on a fixed maximum behaviour time}
+It has been shown that tortoises if can be clasified into two groups, in which both follows a power law distributions, $f(t)$, of exponent $\alpha$ with a maximum time of behaviour, $t_{max}$, 
+\cite{callenbach2025}. In order to facilitate the theoretical analysis, we can infer a transition rate from one state to another, which is a function of the time 
+spent in the current state, $t$. Another thing to consider is that in our simulation we have discrete time steps, $\delta t$. We will obtain the transition rate,
+through the following relation:
+\begin{equation}
+    \gamma (t) = 1 - P(f(t+\delta t)|f(t))
+\end{equation}
+
+Where P(f(t+\delta t)|f(t)) is the conditional probability of being in the same state at time $t+\delta t$ given that it was in that state at time $t$. 
+This conditional probability can be expressed as:
+
+\begin{equation}
+    P(f(t+\delta t)|f(t)) = P(f(t) \cap f(t+\delta t))\frac{P(f(t+\delta t))}{P(f(t))}
+\end{equation}
+
+in which $P(f(t) \cap f(t+\delta t))=1$ and $f(t)=A t^{-\alpha}$ with $A$ a normalization constant. $P(f(t))$ can be calculates as follows:
+
+\begin{equation}
+    P(f(t))=\int_{t}^{t_{\text{max}}}f(t')\,dt'=\frac{A*\left(t_{\text{max}}^{1-\alpha}-t^{1-\alpha}\right)}{1-\alpha}
+\end{equation}
+
+in this equation we are assuming that the state began at time $t=0$ so if we apply this to the conditional probability we have:
+
+\begin{equation}
+    P(f(t+\delta t)|f(t)) = \frac{t_{\text{max}}^{1-\alpha}-(t+\delta t)^{1-\alpha}}{t_{\text{max}}^{1-\alpha}-t^{1-\alpha}} 
+\end{equation}
+
+Finally, we can express the transition rate as:
+\begin{equation}
+    \gamma (t)=\frac{(t+\delta t)^{1-\alpha}-t^{1-\alpha}}{t_{\text{max}}^{1-\alpha}-t^{1-\alpha}} 
+\end{equation}
+
+
+
 
 
 \section*{Supplement}
