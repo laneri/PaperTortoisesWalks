@@ -124,7 +124,7 @@ We can fit an exponent:
 
 \subsection*{Seasonality}
 
-If we attempt to separate the behavior according to biological/climatic periods, namely: November--January, February--March, and April--October, we observe that the MSD behavior is \bftext{NOT} markedly different, with exponents ranging from subdiffusive to diffusive regimes (see Figure \ref{fig3}).
+If we attempt to separate the behavior according to biological/climatic periods, namely: November--January, February--March, and April--October, we observe that the MSD behavior is \textbf{NOT} markedly different, with exponents ranging from subdiffusive to diffusive regimes (see Figure \ref{fig3}).
 The seasonal periods still need to be refined. Here, only the calendar months were considered, but factors such as temperature, late spring conditions, and related environmental variables should probably also be taken into account.
 
 
@@ -373,7 +373,7 @@ analyze the MSD of this model, shown in Figure \ref{fig:MSD_cteS}.
 \end{figure}
 
 The figure shows that the MSD of all the simulations studied is initially superdiffusive and crosses over to diffusive behavior at long
-times. Owing to the absence of subdiffusive behavior, this model can be ruled out as a description of tortoise movement.
+times. 
 
 
 \subsection{Third configuration: power-law distributions for both states}
@@ -394,32 +394,38 @@ $\alpha_S < \alpha_W$.
 \end{figure}
 
 Within the region $\alpha_S < \alpha_W$, we searched for combinations that reproduce the empirically observed behavior. Figure
-\ref{fig:DESPL_PL} shows two examples, in which the configuration with $\sigma_\theta = 0.5$, $\alpha_W = 1.6$ and $\alpha_S = 0.75$
-reproduces the empirical exponent, $\alpha_d \approx 2$.
+\ref{fig:DESPL_PL} shows the best configuration obtained, with $\sigma_\theta = 0.25$, $\alpha_W = 1.8$ and $\alpha_S = 1.1$,
+that reproduces the empirical exponent, $\alpha_d \approx 2$, between $d \in [20, 200] \text{ (u.a.)}$.
+
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.7\textwidth]{Delta_distance_PL_Best.png}
-    \caption{15-minute displacement distribution for $\sigma_\theta = 0.5$, $\alpha_S = 0.75$ and $\alpha_W = 1.6$ and $1.75$.}
+    \includegraphics[width=0.9\textwidth]{Delta_distance_PL_Best.png}
+    \caption{15-minute displacement distribution for $\sigma_\theta = 0.25$, $\alpha_S = 1.1$ and $\alpha_W = 1.8$.}
     \label{fig:DESPL_PL}
 \end{figure}
 
 As in the previous case, once the displacement distribution had been reproduced, we analyzed the MSD of this model, shown in Figure
-\ref{fig:MSD_PL}. The MSD displays a complex behavior: it is ballistic at short time scales, subdiffusive at intermediate time scales, and
-finally converges to diffusive behavior at long time scales.
+\ref{fig:MSD_PL}. The MSD displays ballistic behaviour at short time scales, with an exponent that transitions to $\beta=1$ at long time scales.
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.7\textwidth]{MSD_Power_Law.png}
-    \caption{MSD for $\sigma_\theta = 0.5$, $\alpha_S = 0.75$ and $\alpha_W = 1.6$ and $1.75$. The gray line indicates diffusive behavior.}
+    \includegraphics[width=0.9\textwidth]{MSD_Power_Law.png}
+    \caption{MSD for $\sigma_\theta = 0.25$, $\alpha_S = 1.1$ and $\alpha_W = 1.8$. The gray lines indicate balistic and diffusive behavior.}
     \label{fig:MSD_PL}
 \end{figure}
 
-Although we were able to reproduce subdiffusive behavior and a power-law displacement distribution with the empirical exponent, it is
-important to note that this was achieved at the cost of lowering the exponent of the rest distribution to a value much smaller than those
-obtained from preliminary accelerometer data ($\alpha_S \approx 1.4$--$1.8$; unpublished), while the walking exponent remains within the
-range estimated from the same data.
+This convergence to a difussive behaviour is mainly due to the maximum time for the power law distribution, which lets the difussive behaviour of the gaussian
+distribution of the angular variation to control the MSD functionality at longer times. Also the maximum distribution times allows for several switches between the states,
+if we had no maximum times, due to the exponents of the distribution we are analysing, we would have little movement of the tortoises. In the Figure \ref{fig:Trajectories}, 
+we show three examples of trajectories with the best exponents with this configuration.
 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Trajectories.png}
+    \caption{Three examples of trajectories for $\sigma_\theta = 0.25$, $\alpha_S = 1.1$ and $\alpha_W = 1.8$.}
+    \label{fig:Trajectories}
+\end{figure}
 
 
 \section*{Supplement}
