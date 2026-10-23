@@ -47,168 +47,52 @@ By analyzing GPS tracking data collected over several camàigns, we aim to uncov
 The study was carried out in a site of approximately 25 hectares, located about 20 km north of the city of San Antonio Oeste, Province of Río Negro, Argentina, where there is a stable population of C. chilensis with a large number of specimens. The area in general belongs to the  Monte Austral phytogeographic unit, characterized by a shrub steppe with a predominance of  Larrea spp. with several strata, the lower one being grasses and herbs, all with very little coverage, and particularly with very few cacti (Oyarzabal et al. 2018).
 The specific study area is characterized by a vegetation cover, mostly with xerophytic characteristics, with a predominance of grass clumps (Poaceae) and shrubs (León et al. 1998, Morello et al. 2012). In turn, the grass stratum has a higher species richness than the other Zygophyllaceae of the Monte steppes. The soil is rather sandy with a low percentage of clay and abundant pebbles. Close to the border of the study area, there is the Gran Bajo del Gualicho, a Patagonian plain of up to 70 meters below sea level, characterized by a high saline concentration. This is why there are more saline sectors, where we can find halophyte species such as Suaeda divaricata and several species of the genus Atriplex spp. Scarce precipitations give an average of approximately 255 mm in the year, with minor peaks in spring and fall. Annual average temperature is around 14.5 °C with significant daily thermal amplitudes and a persistence of the west and southwest winds, making the region more arid (Godagnone and Bran, 2008). The minimum average temperature is 1°C, and the maximum is 30 °C, with extreme recorded temperatures of -11.5 and 44.6 °C (data for 1961--2021 provided by the National Meteorological Service of Argentina).
 We tracked six tortoises continuously during a whole year using GPS data loggers (i-gotU GT-120 Mobile Action, Taiwan), recording geographical coordinates every 15 minutes. The positions were recorded continuously from 6am to 10pm and from 2am to 3am. The equipment was attached to the carapace of each individual using a camouflage tape (@Duck Tape, Real Tree Hardwood Camouflage) to mimic the environment, with the precaution of not leaving any sharp corners, in order to prevent the tortoise from getting trapped in the vegetation. After attaching the device, tortoises were released at the same place that were found. The weight of the equipment never exceeded 10% of the body mass, in order not to disturb tortoises' activities. 
-In this work we present analysis and results spanning a whole year, involving a total of 20149 hours of GPS data loggers recording. Those recorded geographical positions corresponded to 813 trajectories from 6 individuals. The GPS data loggers were charged every fifteen days except during the brumation period, when animals were not disturbed and were observed every two weeks to check if they remained brumating at the same location. All recorded trajectories were preprocessed to exclude those corresponding to speeds above a threshold of 15 m/min, assessed as a reasonable maximum speed for the species, according to the speed empirical distribution presented in Fig.S3. 
+In this work we present analysis and results spanning a whole year, involving a total of 20149 hours of GPS data loggers recording. Those recorded geographical positions corresponded to 813 trajectories from 6 individuals. The GPS data loggers were charged every fifteen days except during the brumation period, when animals were not disturbed and were observed every two weeks to check if they remained brumating at the same location. All recorded trajectories were preprocessed to exclude those corresponding to speeds above a threshold of 15 m/min, assessed as a reasonable maximum speed for the species, according to the speed empirical distribution presented in Fig.S3. The distance traveled as a function of time was calculated from the $(\mathrm{latitude}, \mathrm{longitude})$ data using the Haversine function.
+For each behavioral period, we calculated the mean square displacement (MSD) as a function of time, defined as explained in the supplement and was averaged over all daily mesasurements.
 
 
 
-\section*{Results and Discussion}
-The distance traveled as a function of time was calculated from the $(\mathrm{latitude}, \mathrm{longitude})$ data by determining the distance on the Earth's surface using the Haversine function.
-
-The total accumulated distance traveled was then calculated as:
-
-\[
-\mathrm{distot}(t)=\mathrm{distot}(t-1)+\mathrm{distance}(t)
-\]
-
-Figure \ref{fig1} shows all the measured quantities for turtle T10. There are some temporal gaps corresponding to missing data.
-
-A similar behavior is observed for the other turtles (T6, T12, T30, T54, T79, T128, T185, and T206).
+\section*{Results}
 
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10cm,clip=true,angle=0]{tortuga10.pdf}
-\end{center}
-\caption{Datos de la Tortuga T10: A) Datos crudos de (lat,long) ; B) Lo mismo que en A) pero metros, para chequear que el pasaje de datos funcione. C) Distancia recorrida (cada 15min) en funcion del tiempo; D) Distancia acumulada vs time: los colores indican los exponentes del ajuste en cada periodo. }
-\label{fig1}
-\end{figure}
+The distances traveled by the tortoises were measured every 15 minutes. The probability distribution of traveled distances, $P(d)$, for all tortoises is shown in Figure \ref{fig1Pd}. It exhibits a power-law behavior over a wide range of distances, with an exponent $\beta \approx 2.1(2)$. This indicates that the tortoises' movement patterns are characterized by a heavy-tailed distribution, suggesting that they occasionally make long-distance movements interspersed with shorter ones.
 
-The distances traveled by the turtles were measured every 15 minutes.
-Based on the observed behavior, we can define an exponent as:
-
-\begin{equation}
-{\rm P(d)} \approx d^{-\beta}
-\label{eq:pd}
-\end{equation}
-
-The mean exponent for the 9 turtles is: $\beta \approx 2.1(2)$, as shown in Figure \ref{fig22}.
 
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=10cm,clip=true,angle=0]{distrib_sinnoches.pdf}
 \end{center}
-\caption{Distribucion de distancias recorridas cada $\Delta t=15min$, tomando sólo hora solar.}
-\label{fig22}
+\caption{Distribution of traveled distances every $\Delta t=15min$ during the day (9:00 a.m. to 5:00 p.m.).}
+\label{fig1Pd}
 \end{figure}
 
-La nueva figura de MSD solo con los datos de hora solar (9 a 17hs) Figure \ref{fig3}.
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10cm,clip=true,angle=0]{Histogram_new.pdf}
-\end{center}
-\caption{ Distribucion de distancias recorridas cada $\Delta t=15min$.}
-\label{fig222}
-\end{figure}
+The mean square displacement (MSD) as a function of time for all tortoises at a daily scale, calculated from the recorded trajectories, can be seen in Figure \ref{fig2MSD}. 
+As tortoises behavior changes according to the diferent periods: November--January (reproduction), February--March (laying eggs), and April--October (brumation), we computed the MSD separately for each behavioral period. 
+The MSD exhibits a power-law behavior, with an exponent $\alpha$ that varies between subdiffusive ($\alpha < 1$) and diffusive ($\alpha \approx 1$), however differences in the slope of the power law are not markedly different (see Figure \ref{fig2}). This suggests that the tortoises' movement patterns are not purely random but are influenced by underlying behavioral mechanisms.
 
 
-\subsection*{Mean square deviation (MSD)}
-
-ESTO YA NO ES CIERTO:
-By calculating the MSD for each tortoise, markedly different behaviors are observed, both among tortoises and depending on the time period (Figure \ref{fig3}).
-We can fit an exponent:
-\begin{equation}
-{\rm {MSD}} \approx t^{\alpha }
-\label{eq:msd}
-\end{equation}
 
 
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=10cm,clip=true,angle=0]{MSD_sinnochesTn.pdf}
 \end{center}
-\caption{MSD versus time for all turtles (labeled as \textit{Tnumber}) recorded during daylight hours (9:00 a.m. to 5:00 p.m.), categorized by seasonality as indicated. The color of each label indicates the turtle's sex (magenta for females and blue for males). Dotted black lines represent a slope corresponding to diffusive behavior ($\alpha \approx t^{1}$). Further details are given in the text.} 
-\label{fig3}
+\caption{MSD versus time for all tortoises (labeled as $T_{number}$) from GPS recordings during daylight hours (9:00 a.m. to 5:00 p.m.), categorized by behavioral period as indicated. The color of each label indicates the turtle's sex (magenta for females and blue for males). Dotted black lines represent a slope corresponding to diffusive behavior ($\alpha \approx t^{1}$).} 
+\label{fig2MSD}
 \end{figure}
 
 %The data suggest that, at least during certain periods, the behavior is subdiffusive ($\alpha < 1$).
 
-\subsection*{Seasonality}
+According to Figure \ref{fig2MSD}, the MSD exhibits a power-law behavior during the February--March period, with an exponent $\alpha \approx 1.2(1)$, indicating superdiffusive behavior. In contrast, during the November--January and April--October periods, the MSD shows subdiffusive behavior, with exponents $\alpha \approx 0.8(1)$ and $\alpha \approx 0.9(1)$, respectively. These results suggest that the tortoises' movement patterns vary across different behavioral periods, potentially reflecting changes in their activity levels and environmental conditions.
 
-If we attempt to separate the behavior according to biological/climatic periods, namely: November--January, February--March, and April--October, we observe that the MSD behavior is \textbf{NOT} markedly different, with exponents ranging from subdiffusive to diffusive regimes (see Figure \ref{fig3}).
-The seasonal periods still need to be refined. Here, only the calendar months were considered, but factors such as temperature, late spring conditions, and related environmental variables should probably also be taken into account.
+According to Table \ref{tableSexp} the MSD exponent $\alpha$ is consistently less than 1 for all tortoises, indicating subdiffusive behavior. However some individuals exhibit exponents significaly lower that one wich is indicative of a more constrained movement pattern. The distribution of traveled distances, $P(d)$, also shows variability among individuals, with some exhibiting heavier tails than others. This suggests that while the overall movement patterns of the tortoises are subdiffusive, there are individual differences in their movement strategies and behaviors.
 
-
-%\begin{figure}[!h]
-%\begin{center}
-%\includegraphics[width=10cm,clip=true,angle=0]{T10estaciones.pdf}
-%\end{center}
-%\caption{Separacion estacional de T10.}
-%\label{fig24}
-%\end{figure}
-
-Para todas las tortugas el MSD Figure \ref{fig3} y la distribucion de distancias $P(d)$ Figure \ref{fig26}
-
-
-%\begin{figure}[!h]
-%\begin{center}
-%\includegraphics[width=10cm,clip=true,angle=0]{msdtodasT.pdf}
-%\end{center}
-%\caption{MSD segun separacion estacional para todas las tortugas.}
-%\label{fig25}
-%\end{figure}
-
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10cm,clip=true,angle=0]{distribDistodasT.pdf}
-\end{center}
-\caption{Distribucion de distancias recorridas en intervalos de 15min segun separacion estacional para todas las tortugas}
-\label{fig26}
-\end{figure}
-
-In both figures, Fig.~\ref{fig25} and Fig.~\ref{fig26}, the dotted lines correspond to the best fits obtained. Table~1 lists the values of these exponents ($MSD(t) \approx t^{\alpha}$ and $P(d) \approx d^{-\beta}$). As can be seen, there is considerable dispersion among turtles and across different periods of the year.
-
-It should be noted that for some tortoises (T128, T185, and T206) only limited data are available. For example, no data are available for the November--January period, and for the April--October period only data from the first months (April and May) are available, as indicated in Figures \ref{fig25} and \ref{fig26}.
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=12cm,clip=true,angle=0]{alfa_beta.pdf}
-%\includegraphics[width=7cm,clip=true,angle=0]{beta.jpg}
-\end{center}
-\caption{Table 1: Exponents of MSD and $P(d)$ for each turtle and for each period. Males and females are distinguished by color, and the exponents were calculated using all available data.}
-\label{tabla1}
-\end{figure}
-
-
-\subsection*{Males and females}
-
-So far, the MSD appears to exhibit a power-law behavior during the February--March period. Beyond this interval, it becomes difficult to obtain reliable fits.
-
-Within this period, it may be useful to separate the data between males and females in order to investigate possible differences.
-
-Figure \ref{figMH1} shows the MSD behavior separated by males and females. The exponent $\alpha$ (Eq.~\ref{eq:msd}) does not appear to change significantly between males and females; rather, there is considerable dispersion in the data (see Table~2).
+Figure \ref{fig2MSD} shows the MSD behavior separated by males and females. The exponent $\alpha$ (Eq.~\ref{eq:msd}) does not appear to change significantly between males and females.
 
 A similar situation is observed for the distribution of traveled distances (Figure \ref{figMH2}), although in this case the dispersion in the curves may be larger among females than among males.
 
-Table~2 lists the values of the exponents.
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10cm,clip=true,angle=0]{MSD-MH.pdf}
-\end{center}
-\caption{MSD separated in males and females}
-\label{figMH1}
-\end{figure}
 
 
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10cm,clip=true,angle=0]{HistoNormM-H.pdf}
-\end{center}
-\caption{P(d) vs d separated in males and females}
-\label{figMH2}
-\end{figure}
-
-
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=6cm,clip=true,angle=0]{tabla_exponentes.pdf}
-\end{center}
-\caption{Table 2: MSD and $P(d)$ exponents for each tortoise, separated by males and females, calculated using all available data without separation by periods.}
-\label{tabla2}
-\end{figure}
 
 
 \section*{Bouts of walking behaviour}
@@ -427,8 +311,62 @@ we show three examples of trajectories with the best exponents with this configu
     \label{fig:Trajectories}
 \end{figure}
 
+\section*{Discussion and Conclusions}
+
+The seasonal periods still need to be refined. Here, only the calendar months were considered, but factors such as temperature, late spring conditions, and related environmental variables should probably also be taken into account.
+
+
 
 \section*{Supplement}
+%\begin{figure}[!h]
+%\begin{center}
+%\includegraphics[width=10cm,clip=true,angle=0]{T10estaciones.pdf}
+%\end{center}
+%\caption{Separacion estacional de T10.}
+%\label{fig24}
+%\end{figure}
+
+Para todas las tortugas el MSD Figure \ref{fig3} y la distribucion de distancias $P(d)$ Figure \ref{fig26}
+
+
+%\begin{figure}[!h]
+%\begin{center}
+%\includegraphics[width=10cm,clip=true,angle=0]{msdtodasT.pdf}
+%\end{center}
+%\caption{MSD segun separacion estacional para todas las tortugas.}
+%\label{fig25}
+%\end{figure}
+
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=10cm,clip=true,angle=0]{distribDistodasT.pdf}
+\end{center}
+\caption{Distribucion de distancias recorridas en intervalos de 15min segun separacion estacional para todas las tortugas}
+\label{fig26}
+\end{figure}
+
+In both figures, Fig.~\ref{fig25} and Fig.~\ref{fig26}, the dotted lines correspond to the best fits obtained. Table~1 lists the values of these exponents ($MSD(t) \approx t^{\alpha}$ and $P(d) \approx d^{-\beta}$). As can be seen, there is considerable dispersion among turtles and across different periods of the year.
+
+It should be noted that for some tortoises (T128, T185, and T206) only limited data are available. For example, no data are available for the November--January period, and for the April--October period only data from the first months (April and May) are available, as indicated in Figures \ref{fig25} and \ref{fig26}.
+
+
+
+
+
+Figure \ref{fig1} shows all the measured quantities for turtle T10. There are some temporal gaps corresponding to missing data.
+
+A similar behavior is observed for the other turtles (T6, T12, T30, T54, T79, T128, T185, and T206).
+
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=10cm,clip=true,angle=0]{tortuga10.pdf}
+\end{center}
+\caption{Datos de la Tortuga T10: A) Datos crudos de (lat,long) ; B) Lo mismo que en A) pero metros, para chequear que el pasaje de datos funcione. C) Distancia recorrida (cada 15min) en funcion del tiempo; D) Distancia acumulada vs time: los colores indican los exponentes del ajuste en cada periodo. }
+\label{figT10}
+\end{figure}
+
 By testing a different temporal interval, $\Delta t = 30\,\mathrm{min}$, the exponent does not change, nor is any improvement observed in $P(d)$ (Figure \ref{fig23}).
 
 \begin{figure}[!h]
@@ -439,7 +377,43 @@ By testing a different temporal interval, $\Delta t = 30\,\mathrm{min}$, the exp
 \label{fig23}
 \end{figure}
 
-\section*{Supplement}
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=12cm,clip=true,angle=0]{alfa_beta.pdf}
+%\includegraphics[width=7cm,clip=true,angle=0]{beta.jpg}
+\end{center}
+\caption{Table 1: Exponents of MSD and $P(d)$ for each turtle and for each period. Males and females are distinguished by color, and the exponents were calculated using all available data.}
+\label{tableSexp}
+\end{figure}
+
+
+\subsection*{Mean square deviation (MSD)}
+
+
+We can fit an exponent:
+\begin{equation}
+{\rm {MSD}} \approx t^{\alpha }
+\label{eq:msd}
+\end{equation}
+
+
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=10cm,clip=true,angle=0]{Histogram_new.pdf}
+\end{center}
+\caption{ Distribucion de distancias recorridas cada $\Delta t=15min$.}
+\label{fig222}
+\end{figure}
+
+Based on the observed behavior, we can define an exponent as:
+\begin{equation}
+{\rm P(d)} \approx d^{-\beta}
+\label{eq:pd}
+\end{equation}
+
+The mean exponent for the 9 turtles is: $\beta \approx 2.1(2)$, as shown in Figure \ref{fig22}.
+
 By testing a different temporal interval, $\Delta t = 30\,\mathrm{min}$, the exponent does not change, nor is any improvement observed in $P(d)$ (Figure \ref{fig23}).
 
 \begin{figure}[!h]
@@ -449,6 +423,38 @@ By testing a different temporal interval, $\Delta t = 30\,\mathrm{min}$, the exp
 \caption{Distribution of traveled distances for T185, using $\Delta t = 15\,\mathrm{min}$ and $\Delta t = 30\,\mathrm{min}$.}
 \label{fig23}
 \end{figure}
+
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=10cm,clip=true,angle=0]{MSD-MH.pdf}
+\end{center}
+\caption{MSD separated in males and females}
+\label{figSupMH1}
+\end{figure}
+
+
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=10cm,clip=true,angle=0]{HistoNormM-H.pdf}
+\end{center}
+\caption{P(d) vs d separated in males and females}
+\label{figSupMH2}
+\end{figure}
+
+
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=6cm,clip=true,angle=0]{tabla_exponentes.pdf}
+\end{center}
+\caption{Table 2: MSD and $P(d)$ exponents for each tortoise, separated by males and females, calculated using all available data without separation by periods.}
+\label{tabla2}
+\end{figure}
+
+
+
 
 \end{document}
 
