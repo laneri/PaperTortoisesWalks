@@ -49,11 +49,11 @@ The specific study area is characterized by a vegetation cover, mostly with xero
 We tracked six tortoises continuously during a whole year using GPS data loggers (i-gotU GT-120 Mobile Action, Taiwan), recording geographical coordinates every 15 minutes. The positions were recorded continuously from 6am to 10pm and from 2am to 3am. The equipment was attached to the carapace of each individual using a camouflage tape (@Duck Tape, Real Tree Hardwood Camouflage) to mimic the environment, with the precaution of not leaving any sharp corners, in order to prevent the tortoise from getting trapped in the vegetation. After attaching the device, tortoises were released at the same place that were found. The weight of the equipment never exceeded 10% of the body mass, in order not to disturb tortoises' activities. 
 In this work we present analysis and results spanning a whole year, involving a total of 20149 hours of GPS data loggers recording. Those recorded geographical positions corresponded to 813 trajectories from 6 individuals. The GPS data loggers were charged every fifteen days except during the brumation period, when animals were not disturbed and were observed every two weeks to check if they remained brumating at the same location. All recorded trajectories were preprocessed to exclude those corresponding to speeds above a threshold of 15 m/min, assessed as a reasonable maximum speed for the species, according to the speed empirical distribution presented in Fig.S3. The distance traveled as a function of time was calculated from the $(\mathrm{latitude}, \mathrm{longitude})$ data using the Haversine function.
 For each behavioral period, we calculated the mean square displacement (MSD) as a function of time, defined as explained in the supplement and was averaged over all daily mesasurements.
-
+Additionally, accelerometer signal was classified into two states: walking and resting, using the random forest classification algorithm in Python and we calculated the distribution of step lengths and waiting times for each state. The distributions were fitted using maximum likelihood estimation, for each individual and behavioral period. The results were analyzed to identify patterns and differences between individuals, sexes, and behavioral periods.
+Here explain that accelerometer has signal every 1,7s while GPS has signal every 15 min. So we aggregated acc data to 15min following the crteria.....
 
 
 \section*{Results}
-
 
 The distances traveled by the tortoises were measured every 15 minutes. The probability distribution of traveled distances, $P(d)$, for all tortoises is shown in Figure \ref{fig1Pd}. It exhibits a power-law behavior over a wide range of distances, with an exponent $\beta \approx 2.1(2)$. This indicates that the tortoises' movement patterns are characterized by a heavy-tailed distribution, suggesting that they occasionally make long-distance movements interspersed with shorter ones.
 
@@ -91,15 +91,123 @@ Figure \ref{fig2MSD} shows the MSD behavior separated by males and females. The 
 
 A similar situation is observed for the distribution of traveled distances (Figure \ref{figMH2}), although in this case the dispersion in the curves may be larger among females than among males.
 
+The distribution of step lengths and waiting times from accelerometer data is shown in Figures \ref{fig1Pd} and \ref{fig1Pd}. The step length distribution exhibits a heavy-tailed behavior, indicating that the tortoises occasionally make long steps interspersed with shorter ones. The waiting time distribution also shows a heavy-tailed behavior, suggesting that the tortoises may have periods of inactivity interspersed with bursts of activity. These distributions provide insights into the tortoises' movement patterns and can inform the development of models to describe their behavior.
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=10cm,clip=true,angle=0]{distribucion_actividad_campos.png}
+\end{center}
+\caption{Distibution of steplenghts from accelerometer data.}
+\label{fig1Pd}
+\end{figure}
 
 
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=10cm,clip=true,angle=0]{distribucion_quietud_campos.png}
+\end{center}
+\caption{Distibution of waiting times from accelerometer data.}
+\label{fig1Pd}
+\end{figure}
 
+\section*{Modeling Tortoise Movement Patterns}
+\label{P:Modelo}
+Inspired in those measurements we proposed a model based on a \textit{Stop and Go} random walker moving in a homogeneous continuous space. We simulate $N\approx 100.000$ individuals with no interaction between them, each alternating between two states: movement (\textit{Go}) and rest (\textit{Stop}). 
 
-\section*{Bouts of walking behaviour}
-
-We have shown that the power-law distribution of displacements can be explained by assuming the tortoise performs random walks with constant speed interspersed with resting periods, provided the duration of the walking bouts is distributed with a power-law, or Pareto, distribution,
+We assume that each tortoise performs random walks with constant speed interspersed with resting periods, provided the duration of the walking bouts is distributed with a power-law, or Pareto, distribution,
 $$  P_b(t) = \frac{\alpha-1}{t^\alpha}, \qquad t\ge1, $$
 where \(P_b(t)\,dt\) is the probability that a bout of walking will last from time \(t=0\) to a time between \(t\) and \(t+dt\).
+
+At each step, we draw the total time to be spent in a state directly upon entering it
+from its full duration distribution. To this end, we use inverse transform sampling (\textit{inverse-CDF sampling}): given a probability 
+density $f(t)\propto t^{-\alpha}$ truncated between a minimum time $t_{min}$ and a maximum time $t_{max}$, its cumulative distribution 
+function can be inverted to obtain a closed-form expression that, given a random number $u$ uniformly distributed in $[0,1]$, 
+directly yields the sampled time:
+
+\begin{equation}
+    t = \left[(t_{max}^{\,1-\alpha} - t_{min}^{\,1-\alpha})\,u + t_{min}^{\,1-\alpha}\right]^{\frac{1}{1-\alpha}}
+\end{equation}
+
+This method yields, in a single operation, the full time that an individual will spend in the movement or rest state, without having to
+evaluate the transition probability step by step. Since we simulate a large number of individuals over long time spans, we reduce computational cost.
+The individual moves at discrete time intervals $\delta t$, taking steps of constant length $L$. The direction of
+each step follows a correlated random walk: the new orientation angle $\theta_{i+1}$ is obtained from
+the angle of the previous step, $\theta_i$, by adding Gaussian noise with zero mean and standard deviation $\sigma_\theta$,
+
+\begin{equation}
+    \theta_{i+1} = \theta_i + \eta_i, \qquad \eta_i \sim \mathcal{N}(0,\sigma_\theta^2).
+\end{equation}
+
+The position of the individual is therefore updated at each time step according to
+
+\begin{equation}
+    x_{i+1} = x_i + L\cos(\theta_{i+1}), \qquad y_{i+1} = y_i + L\sin(\theta_{i+1}).
+\end{equation}
+
+This angular correlation introduces directional persistence into the trajectory: unlike a simple random walk, in which the direction is drawn
+independently at each step, the individual tends to maintain its heading over short time scales, producing locally straight trajectories that
+curve gradually as angular perturbations accumulate.
+
+In the \textit{Stop} state, by contrast, the position of the individual remains fixed, $x_{i+1}=x_i$ and $y_{i+1}=y_i$, and the only process
+that advances is the count of the time elapsed in that state.
+
+The duration of each bout, both \textit{Go} and \textit{Stop}, is drawn upon entering the corresponding state using the inverse transform
+sampling method described above, from the truncated power-law distribution associated with each of the two states.
+
+\section*{Computer simulations}
+We performed simulations of the model described above, exploring three different configurations. In the first configuration, we kept the walking time constant and let the rest time follow a power law but we couldn't reproduce the observed behavior in the step length distribution nor in the MSD. 
+
+Finally we propose a model in which both time distributions follow a power law, $f_S(t) \propto t^{-\alpha_S}$ for rest and
+$f_W(t) \propto t^{-\alpha_W}$ for walking, with $\alpha_S, \alpha_W > 0$. To explore the parameter space, we performed a sweep over
+$\alpha_S \in [0.5, 2.0]$, $\alpha_W \in [1.0, 3.0]$ and $\sigma_\theta \in [0.2, 2.0]$, computing in each case the 15-minute displacement
+distribution, $P(d) \propto d^{-\alpha_d}$. As an example, Figure \ref{fig:Exponents} shows these distributions for different values of
+$\alpha_S$, with $\alpha_W = 1.75$ and $\sigma_\theta = 0.2$ held fixed. Across the whole sweep, the decreasing power-law regime
+($\alpha_d > 0$) appears only when the rest distribution decays more slowly than the walking distribution, that is, when
+$\alpha_S < \alpha_W$.
+
+
+Within the region $\alpha_S < \alpha_W$, we searched for combinations that reproduce the empirically observed behavior. Figure
+\ref{fig:DESPL_PL} shows the best configuration obtained, with $\sigma_\theta = 0.25$, $\alpha_W = 1.8$ and $\alpha_S = 1.1$,
+that reproduces the empirical exponent, $\alpha_d \approx 2$, between $d \in [20, 200] \text{ (u.a.)}$.
+
+
+
+As in the previous case, once the displacement distribution had been reproduced, we analyzed the MSD of this model, shown in Figure
+\ref{fig:MSD_PL}. The MSD displays ballistic behaviour at short time scales, with an exponent that transitions to $\beta=1$ at long time scales.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Delta_distance_PL_Best.png}
+    \caption{15-minute displacement distribution for $\sigma_\theta = 0.25$, $\alpha_S = 1.1$ and $\alpha_W = 1.8$.}
+    \label{fig:DESPL_PL}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{MSD_Power_Law.png}
+    \caption{MSD for $\sigma_\theta = 0.25$, $\alpha_S = 1.1$ and $\alpha_W = 1.8$. The gray lines indicate balistic and diffusive behavior.}
+    \label{fig:MSD_PL}
+\end{figure}
+
+In the Figure \ref{fig:Trajectories}, 
+we show three examples of trajectories with the best exponents with this configuration.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Trajectories.png}
+    \caption{Three examples of trajectories for $\sigma_\theta = 0.25$, $\alpha_S = 1.1$ and $\alpha_W = 1.8$.}
+    \label{fig:Trajectories}
+\end{figure}
+
+
+\section*{Statistical interpretation}
+Another approach consists of defining an instantaneous transition rate $\gamma(t)$, a function of the time already spent in the current state, and evaluating it at every
+discrete time step $\delta t$ of the simulation to decide whether the individual switches state. Although this approach naturally
+accommodates a time-dependent rate, it requires evaluating a transition probability at every time step of each bout, which considerably
+increases the computational cost when simulating a large number of individuals.
+
+
+
 
 This behaviour can also be explained by considering the transition probability from walking to resting, \(\gamma(t)\).  The transition probability is the probability that the tortoise will stop walking at a time between \(t\) and \(t+dt\), given that it is walking at time \(t\), i.e.
 $$ \gamma(t) = \frac{P_b(t)}{\text{P. of walking at time $t$}} = \frac{P_b(t)}{1 - \text{P. of having stopped between $0$ and $t$}} = \frac{P_b(t)}{1-\int_0^t\!\!P_b(t')\,dt´} . $$
@@ -145,177 +253,34 @@ Finally, we can express the transition rate as:
 
 
 
-%% ======================================================================
-%% MODELO
-%% ======================================================================
-\section{Model}\label{P:Modelo}
-
-The model developed in this work describes the movement of each tortoise as a \textit{Stop and Go} random walker moving in a
-homogeneous continuous space, that is, without refuges or any other structures that introduce spatial heterogeneity. We simulate $N\approx 100.000$ individuals 
-independently, with no interaction between them, each alternating between two states: movement (\textit{Go}) and rest (\textit{Stop}). 
-The day-night cycle is incorporated solely as an active time window, analogous to the one used during GPS data acquisition (Section \ref{I:GPS}): 
-outside this interval, which coincides with the nocturnal resting hours of the species, the individual remains motionless. Each simulation spans two months.
-
-There are at least two possible strategies to determine how long an individual remains in each of the two states. The first consists of
-defining an instantaneous transition rate $\gamma(t)$, a function of the time already spent in the current state, and evaluating it at every
-discrete time step $\delta t$ of the simulation to decide whether the individual switches state. Although this approach naturally
-accommodates a time-dependent rate, it requires evaluating a transition probability at every time step of each bout, which considerably
-increases the computational cost when simulating a large number of individuals.
-
-The second strategy, which we adopt in this work, consists of drawing the total time to be spent in a state directly upon entering it
-from its full duration distribution. To this end, we use inverse transform sampling (\textit{inverse-CDF sampling}): given a probability 
-density $f(t)\propto t^{-\alpha}$ truncated between a minimum time $t_{min}$ and a maximum time $t_{max}$, its cumulative distribution 
-function can be inverted to obtain a closed-form expression that, given a random number $u$ uniformly distributed in $[0,1]$, 
-directly yields the sampled time:
-
-\begin{equation}
-    t = \left[(t_{max}^{\,1-\alpha} - t_{min}^{\,1-\alpha})\,u + t_{min}^{\,1-\alpha}\right]^{\frac{1}{1-\alpha}}
-\end{equation}
-
-This method yields, in a single operation, the full time that an individual will spend in the movement or rest state, without having to
-evaluate the transition probability step by step. Since we simulate a large number of individuals over long time spans, this reduction in
-computational cost is crucial for the feasibility of this work.
-
-
-\section{Stop and Go dynamics}
-
-In the \textit{Go} state, the individual moves at discrete time intervals $\delta t$, taking steps of constant length $L$. The direction of
-each step is not drawn independently; instead, it follows a correlated random walk: the new orientation angle $\theta_{i+1}$ is obtained from
-the angle of the previous step, $\theta_i$, by adding Gaussian noise with zero mean and standard deviation $\sigma_\theta$,
-
-\begin{equation}
-    \theta_{i+1} = \theta_i + \eta_i, \qquad \eta_i \sim \mathcal{N}(0,\sigma_\theta^2).
-\end{equation}
-
-The position of the individual is therefore updated at each time step according to
-
-\begin{equation}
-    x_{i+1} = x_i + L\cos(\theta_{i+1}), \qquad y_{i+1} = y_i + L\sin(\theta_{i+1}).
-\end{equation}
-
-This angular correlation introduces directional persistence into the trajectory: unlike a simple random walk, in which the direction is drawn
-independently at each step, the individual tends to maintain its heading over short time scales, producing locally straight trajectories that
-curve gradually as angular perturbations accumulate.
-
-In the \textit{Stop} state, by contrast, the position of the individual remains fixed, $x_{i+1}=x_i$ and $y_{i+1}=y_i$, and the only process
-that advances is the count of the time elapsed in that state.
-
-The duration of each bout, both \textit{Go} and \textit{Stop}, is drawn upon entering the corresponding state using the inverse transform
-sampling method described above, from the truncated power-law distribution associated with each of the two states.
-
-
-%% ======================================================================
-%% LAS DISTINTAS CONFIGURACIONES DE DISTRIBUCIONES TEMPORALES ESTUDIADAS
-%% ======================================================================
-\section{Computational Results}
-\subsection{First configuration: constant walking time}
-
-Figure \ref{fig:Distribucion_cteW} shows several displacement distributions, with $\sigma_\theta=0.2$ and a constant walking time
-$T_{\text{walk}}=10 \text{ t.s.}$ (time steps, i.e., 10 simulation steps) for all three curves. What varies between the curves is the
-exponent of the rest-time distribution.
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Delta_distance_Fixed_walk_times.png}
-    \caption{Displacement distribution for the first model, with constant walking time.}
-    \label{fig:Distribucion_cteW}
-\end{figure}
-
-In this figure, we observe that the displacement distributions exhibit characteristic distances that are approximately multiples of
-$L\,T_{\text{walk}}$. Because the model adds Gaussian noise to the direction of motion, these characteristic values lie slightly below the
-aforementioned multiples, since the exact value is only attained when the individual moves in a straight line. These peaks correspond to a
-given number of walking bouts completed within the 15-minute window; for example, the first peak corresponds to a single walking bout, after
-which the individual remained at rest for the remainder of that window. As a consequence, these characteristic distances become blurred as
-the rest-time exponent $\alpha_S$ increases, since long rest times become less likely.
-
-Given the discrepancy between the distributions obtained and the empirical distribution, we conclude that this model cannot reproduce the
-behavior observed in the tortoises, and we therefore discard it.
-
-
-\subsection{Second configuration: constant rest time}
-
-In this second configuration, we keep the rest time constant and let the walking time follow a power law. Figure \ref{fig:Distribucion_cteS}
-shows the displacement distribution for different rest times, keeping the walking-time exponent and $\sigma_\theta$ fixed.
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Delta_distance_Fixed_stop_times.png}
-    \caption{Displacement distribution for the second model, with constant rest time.}
-    \label{fig:Distribucion_cteS}
-\end{figure}
-
-The key feature of this figure is that, unlike the first model, the distributions display power-law behavior, and they converge to the same
-distribution once the rest times exceed the duration of the analyzed window (15 minutes). This configuration reproduces the power-law
-behavior with exponent $\alpha_d \approx 2$ observed in the tortoises for rest times longer than 500 seconds. Having achieved this, we
-analyze the MSD of this model, shown in Figure \ref{fig:MSD_cteS}.
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{MSD_Fixed_stop_times.png}
-    \caption{MSD for the second model, with constant rest time.}
-    \label{fig:MSD_cteS}
-\end{figure}
-
-The figure shows that the MSD of all the simulations studied is initially superdiffusive and crosses over to diffusive behavior at long
-times. 
-
-
-\subsection{Third configuration: power-law distributions for both states}
-
-The last configuration we tested is one in which both time distributions follow a power law, $f_S(t) \propto t^{-\alpha_S}$ for rest and
-$f_W(t) \propto t^{-\alpha_W}$ for walking, with $\alpha_S, \alpha_W > 0$. To explore the parameter space, we performed a sweep over
-$\alpha_S \in [0.5, 2.0]$, $\alpha_W \in [1.0, 3.0]$ and $\sigma_\theta \in [0.2, 2.0]$, computing in each case the 15-minute displacement
-distribution, $P(d) \propto d^{-\alpha_d}$. As an example, Figure \ref{fig:Exponents} shows these distributions for different values of
-$\alpha_S$, with $\alpha_W = 1.75$ and $\sigma_\theta = 0.2$ held fixed. Across the whole sweep, the decreasing power-law regime
-($\alpha_d > 0$) appears only when the rest distribution decays more slowly than the walking distribution, that is, when
-$\alpha_S < \alpha_W$.
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Delta_distance_PL_Exponents.png}
-    \caption{15-minute displacement distribution for the third model, with $\sigma_\theta = 0.2$, $\alpha_W = 1.75$ and different values of $\alpha_S$.}
-    \label{fig:Exponents}
-\end{figure}
-
-Within the region $\alpha_S < \alpha_W$, we searched for combinations that reproduce the empirically observed behavior. Figure
-\ref{fig:DESPL_PL} shows the best configuration obtained, with $\sigma_\theta = 0.25$, $\alpha_W = 1.8$ and $\alpha_S = 1.1$,
-that reproduces the empirical exponent, $\alpha_d \approx 2$, between $d \in [20, 200] \text{ (u.a.)}$.
-
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{Delta_distance_PL_Best.png}
-    \caption{15-minute displacement distribution for $\sigma_\theta = 0.25$, $\alpha_S = 1.1$ and $\alpha_W = 1.8$.}
-    \label{fig:DESPL_PL}
-\end{figure}
-
-As in the previous case, once the displacement distribution had been reproduced, we analyzed the MSD of this model, shown in Figure
-\ref{fig:MSD_PL}. The MSD displays ballistic behaviour at short time scales, with an exponent that transitions to $\beta=1$ at long time scales.
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{MSD_Power_Law.png}
-    \caption{MSD for $\sigma_\theta = 0.25$, $\alpha_S = 1.1$ and $\alpha_W = 1.8$. The gray lines indicate balistic and diffusive behavior.}
-    \label{fig:MSD_PL}
-\end{figure}
-
-This convergence to a difussive behaviour is mainly due to the maximum time for the power law distribution, which lets the difussive behaviour of the gaussian
-distribution of the angular variation to control the MSD functionality at longer times. Also the maximum distribution times allows for several switches between the states,
-if we had no maximum times, due to the exponents of the distribution we are analysing, we would have little movement of the tortoises. In the Figure \ref{fig:Trajectories}, 
-we show three examples of trajectories with the best exponents with this configuration.
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{Trajectories.png}
-    \caption{Three examples of trajectories for $\sigma_\theta = 0.25$, $\alpha_S = 1.1$ and $\alpha_W = 1.8$.}
-    \label{fig:Trajectories}
-\end{figure}
+%% 
 
 \section*{Discussion and Conclusions}
 
 The seasonal periods still need to be refined. Here, only the calendar months were considered, but factors such as temperature, late spring conditions, and related environmental variables should probably also be taken into account.
+This convergence to a difussive behaviour is mainly due to the maximum time for the power law distribution, which lets the difussive behaviour of the gaussian
+distribution of the angular variation to control the MSD functionality at longer times. Also the maximum distribution times allows for several switches between the states,
+if we had no maximum times, due to the exponents of the distribution we are analysing, we would have little movement of the tortoises. 
 
 
+
+
+\section{Acknowledgements}
+ This research was partially supported by Agencia Nacional de Promoción Científica y Tecnológica, Argentina, Consejo Nacional de Investigaciones Científicas y Técnicas, Argentina (CONICET).
+
+
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\setcounter{equation}{0}
+\setcounter{section}{0}
+\setcounter{table}{0}
+\setcounter{page}{1}
+\setcounter{figure}{0}
+
+\newpage
 
 \section*{Supplement}
 %\begin{figure}[!h]
@@ -452,6 +417,67 @@ By testing a different temporal interval, $\Delta t = 30\,\mathrm{min}$, the exp
 \caption{Table 2: MSD and $P(d)$ exponents for each tortoise, separated by males and females, calculated using all available data without separation by periods.}
 \label{tabla2}
 \end{figure}
+
+
+\subsection{First configuration: constant walking time}
+
+Figure \ref{fig:Distribucion_cteW} shows several displacement distributions, with $\sigma_\theta=0.2$ and a constant walking time
+$T_{\text{walk}}=10 \text{ t.s.}$ (time steps, i.e., 10 simulation steps) for all three curves. What varies between the curves is the
+exponent of the rest-time distribution.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Delta_distance_Fixed_walk_times.png}
+    \caption{Displacement distribution for the first model, with constant walking time.}
+    \label{fig:Distribucion_cteW}
+\end{figure}
+
+In this figure, we observe that the displacement distributions exhibit characteristic distances that are approximately multiples of
+$L\,T_{\text{walk}}$. Because the model adds Gaussian noise to the direction of motion, these characteristic values lie slightly below the
+aforementioned multiples, since the exact value is only attained when the individual moves in a straight line. These peaks correspond to a
+given number of walking bouts completed within the 15-minute window; for example, the first peak corresponds to a single walking bout, after
+which the individual remained at rest for the remainder of that window. As a consequence, these characteristic distances become blurred as
+the rest-time exponent $\alpha_S$ increases, since long rest times become less likely.
+
+Given the discrepancy between the distributions obtained and the empirical distribution, we conclude that this model cannot reproduce the
+behavior observed in the tortoises, and we therefore discard it.
+
+
+
+\subsection{Second configuration: constant walking time}
+
+
+In the second configuration, we kept the rest time constant and let the walking time follow a power law. The displacement distribution for different rest times is shown in Figure \ref{fig:Distribucion_cteS}, keeping the walking-time exponent and $\sigma_\theta$ fixed.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Delta_distance_Fixed_stop_times.png}
+    \caption{Displacement distribution for the second model, with constant rest time.}
+    \label{fig:Distribucion_cteS}
+\end{figure}
+
+Unlike the first model simulations, the distributions display power-law behavior, and they converge to the same
+distribution once the rest times exceed the duration of the analyzed window (15 minutes). This configuration reproduces the power-law
+behavior with exponent $\alpha_d \approx 2$ observed in the tortoises for rest times longer than 500 seconds. The
+MSD produced with this model is shown in Figure \ref{fig:MSD_cteS}.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{MSD_Fixed_stop_times.png}
+    \caption{MSD for the second model, with constant rest time.}
+    \label{fig:MSD_cteS}
+\end{figure}
+
+All the simulations exhibit a superdiffusive behavior at the begining and crosses over to diffusive behavior at longer times. 
+
+\subsection{Third configuration: constant walking time}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Delta_distance_PL_Exponents.png}
+    \caption{15-minute displacement distribution for the third model, with $\sigma_\theta = 0.2$, $\alpha_W = 1.75$ and different values of $\alpha_S$.}
+    \label{fig:Exponents}
+\end{figure}
+
 
 
 
