@@ -91,14 +91,14 @@ Figure \ref{fig2MSD} shows the MSD behavior separated by males and females. The 
 
 A similar situation is observed for the distribution of traveled distances (Figure \ref{figMH2}), although in this case the dispersion in the curves may be larger among females than among males.
 
-The distribution of step lengths and waiting times from accelerometer data is shown in Figures \ref{fig1Pd} and \ref{fig1Pd}. The step length distribution exhibits a heavy-tailed behavior, indicating that the tortoises occasionally make long steps interspersed with shorter ones. The waiting time distribution also shows a heavy-tailed behavior, suggesting that the tortoises may have periods of inactivity interspersed with bursts of activity. These distributions provide insights into the tortoises' movement patterns and can inform the development of models to describe their behavior.
+The distribution of step lengths and waiting times from accelerometer data is shown in Figures \ref{figPdStep} and \ref{figPdWait}. The step length distribution exhibits a heavy-tailed behavior, indicating that the tortoises occasionally make long steps interspersed with shorter ones. The waiting time distribution also shows a heavy-tailed behavior, suggesting that the tortoises may have periods of inactivity interspersed with bursts of activity. These distributions provide insights into the tortoises' movement patterns and can inform the development of models to describe their behavior.
 
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=10cm,clip=true,angle=0]{distribucion_actividad_campos.png}
 \end{center}
 \caption{Distibution of steplenghts from accelerometer data.}
-\label{fig1Pd}
+\label{figPdStep}
 \end{figure}
 
 
@@ -107,12 +107,15 @@ The distribution of step lengths and waiting times from accelerometer data is sh
 \includegraphics[width=10cm,clip=true,angle=0]{distribucion_quietud_campos.png}
 \end{center}
 \caption{Distibution of waiting times from accelerometer data.}
-\label{fig1Pd}
+\label{figPdWait}
 \end{figure}
+
+It's important to notice that the time scale of the accelerometer data is much shorter than that of the GPS data, which allows for a more detailed analysis of the tortoises' movement patterns. The accelerometer data provides insights into the tortoises' activity levels and can help identify periods of rest and activity that may not be captured by the GPS data alone. By combining both data sources, we can gain a more comprehensive understanding of the tortoises' movement patterns and behaviors.
+
 
 \section*{Modeling Tortoise Movement Patterns}
 \label{P:Modelo}
-Inspired in those measurements we proposed a model based on a \textit{Stop and Go} random walker moving in a homogeneous continuous space. We simulate $N\approx 100.000$ individuals with no interaction between them, each alternating between two states: movement (\textit{Go}) and rest (\textit{Stop}). 
+Inspired in the previous field measurements we proposed a model based on a \textit{Stop and Go} random walker moving in a homogeneous continuous space. We simulate $N\approx 100.000$ individuals with no interaction between them, each alternating between two states: movement (\textit{Go}) and rest (\textit{Stop}). 
 
 We assume that each tortoise performs random walks with constant speed interspersed with resting periods, provided the duration of the walking bouts is distributed with a power-law, or Pareto, distribution,
 $$  P_b(t) = \frac{\alpha-1}{t^\alpha}, \qquad t\ge1, $$
@@ -154,8 +157,7 @@ that advances is the count of the time elapsed in that state.
 The duration of each bout, both \textit{Go} and \textit{Stop}, is drawn upon entering the corresponding state using the inverse transform
 sampling method described above, from the truncated power-law distribution associated with each of the two states.
 
-\section*{Computer simulations}
-We performed simulations of the model described above, exploring three different configurations. In the first configuration, we kept the walking time constant and let the rest time follow a power law but we couldn't reproduce the observed behavior in the step length distribution nor in the MSD. 
+We performed computer simulations with this model, exploring three different cases. In the first case, we kept the walking time constant and let the rest time follow a power law but we couldn't reproduce the observed behavior in the step length distribution nor in the MSD (see Figures \ref{}Supplemental Material ). 
 
 Finally we propose a model in which both time distributions follow a power law, $f_S(t) \propto t^{-\alpha_S}$ for rest and
 $f_W(t) \propto t^{-\alpha_W}$ for walking, with $\alpha_S, \alpha_W > 0$. To explore the parameter space, we performed a sweep over
@@ -190,7 +192,7 @@ As in the previous case, once the displacement distribution had been reproduced,
 \end{figure}
 
 In the Figure \ref{fig:Trajectories}, 
-we show three examples of trajectories with the best exponents with this configuration.
+we show three realizations of trajectories with the best exponents with this configuration.
 
 \begin{figure}[!h]
     \centering
@@ -283,77 +285,38 @@ if we had no maximum times, due to the exponents of the distribution we are anal
 \newpage
 
 \section*{Supplement}
-%\begin{figure}[!h]
-%\begin{center}
-%\includegraphics[width=10cm,clip=true,angle=0]{T10estaciones.pdf}
-%\end{center}
-%\caption{Separacion estacional de T10.}
-%\label{fig24}
-%\end{figure}
-
-Para todas las tortugas el MSD Figure \ref{fig3} y la distribucion de distancias $P(d)$ Figure \ref{fig26}
-
-
-%\begin{figure}[!h]
-%\begin{center}
-%\includegraphics[width=10cm,clip=true,angle=0]{msdtodasT.pdf}
-%\end{center}
-%\caption{MSD segun separacion estacional para todas las tortugas.}
-%\label{fig25}
-%\end{figure}
+To analyse the distribution of traveled distance for each tortoise, we separated the data into three behavioral periods: November--January (reproduction), February--March (laying eggs), and April--October (brumation). The distribution of traveled distances for intervals of 15 minutes, separated by behavioral period and tortoise, is shown in Figure~\ref{SfigPdByPeriod}. The distributions exhibit power-law behavior over a wide range of distances, with exponents that vary among tortoises and across different periods of the year.
+In Figure~\ref{SfigPdByPeriod}, the dotted lines correspond to the best fits obtained. Table~1 lists the values of these exponents ($MSD(t) \approx t^{\alpha}$ and $P(d) \approx d^{-\beta}$). As can be seen, there is some dispersion among tortoises and across different periods of the year.
 
 
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=10cm,clip=true,angle=0]{distribDistodasT.pdf}
 \end{center}
-\caption{Distribucion de distancias recorridas en intervalos de 15min segun separacion estacional para todas las tortugas}
-\label{fig26}
+\caption{Distribution of traveled distances for intervals of 15min separated by behavioral period and tortoise.}
+\label{SfigPdByPeriod}
 \end{figure}
 
-In both figures, Fig.~\ref{fig25} and Fig.~\ref{fig26}, the dotted lines correspond to the best fits obtained. Table~1 lists the values of these exponents ($MSD(t) \approx t^{\alpha}$ and $P(d) \approx d^{-\beta}$). As can be seen, there is considerable dispersion among turtles and across different periods of the year.
 
-It should be noted that for some tortoises (T128, T185, and T206) only limited data are available. For example, no data are available for the November--January period, and for the April--October period only data from the first months (April and May) are available, as indicated in Figures \ref{fig25} and \ref{fig26}.
+It should be noted that for some tortoises (T128, T185, and T206) only limited data are available. For example, no data are available for the November--January period, and for the April--October period only data from the first months (April and May) are available (See Figure \ref{SfigPdByPeriod}).
 
-
-
-
-
-Figure \ref{fig1} shows all the measured quantities for turtle T10. There are some temporal gaps corresponding to missing data.
-
-A similar behavior is observed for the other turtles (T6, T12, T30, T54, T79, T128, T185, and T206).
-
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10cm,clip=true,angle=0]{tortuga10.pdf}
-\end{center}
-\caption{Datos de la Tortuga T10: A) Datos crudos de (lat,long) ; B) Lo mismo que en A) pero metros, para chequear que el pasaje de datos funcione. C) Distancia recorrida (cada 15min) en funcion del tiempo; D) Distancia acumulada vs time: los colores indican los exponentes del ajuste en cada periodo. }
-\label{figT10}
-\end{figure}
-
-By testing a different temporal interval, $\Delta t = 30\,\mathrm{min}$, the exponent does not change, nor is any improvement observed in $P(d)$ (Figure \ref{fig23}).
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10cm,clip=true,angle=0]{histo15_30.pdf}
-\end{center}
-\caption{Distribution of traveled distances for T185, using $\Delta t = 15\,\mathrm{min}$ and $\Delta t = 30\,\mathrm{min}$.}
-\label{fig23}
-\end{figure}
 
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=12cm,clip=true,angle=0]{alfa_beta.pdf}
-%\includegraphics[width=7cm,clip=true,angle=0]{beta.jpg}
 \end{center}
-\caption{Table 1: Exponents of MSD and $P(d)$ for each turtle and for each period. Males and females are distinguished by color, and the exponents were calculated using all available data.}
-\label{tableSexp}
+\caption{Exponents of MSD and $P(d)$ for each tortoise and behavioral period. Males (cyan) and females (magenta), the exponents were calculated using all available data. PASAR AL INGLES LA TABLA}
+\label{StableExponents}
 \end{figure}
 
 
 \subsection*{Mean square deviation (MSD)}
+The mean square deviation (MSD) is a measure of the average squared distance traveled by an individual over time. It is defined as:
 
+LUCIANO explicar la ecuacion y forma de calculo: 
+\begin{equation}
+{\rm {MSD}}(t) = \langle |{\bf r}(t) - {\bf r}(0)|^2 \rangle
+\end{equation}
 
 We can fit an exponent:
 \begin{equation}
@@ -361,34 +324,12 @@ We can fit an exponent:
 \label{eq:msd}
 \end{equation}
 
-
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10cm,clip=true,angle=0]{Histogram_new.pdf}
-\end{center}
-\caption{ Distribucion de distancias recorridas cada $\Delta t=15min$.}
-\label{fig222}
-\end{figure}
-
+The probability distribution of traveled distances, $P(d)$, isthe probability density function of the distances traveled by the tortoises over 15 minutes. 
 Based on the observed behavior, we can define an exponent as:
 \begin{equation}
 {\rm P(d)} \approx d^{-\beta}
 \label{eq:pd}
 \end{equation}
-
-The mean exponent for the 9 turtles is: $\beta \approx 2.1(2)$, as shown in Figure \ref{fig22}.
-
-By testing a different temporal interval, $\Delta t = 30\,\mathrm{min}$, the exponent does not change, nor is any improvement observed in $P(d)$ (Figure \ref{fig23}).
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=10cm,clip=true,angle=0]{histo15_30.pdf}
-\end{center}
-\caption{Distribution of traveled distances for T185, using $\Delta t = 15\,\mathrm{min}$ and $\Delta t = 30\,\mathrm{min}$.}
-\label{fig23}
-\end{figure}
-
 
 \begin{figure}[!h]
 \begin{center}
@@ -410,18 +351,16 @@ By testing a different temporal interval, $\Delta t = 30\,\mathrm{min}$, the exp
 
 
 
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=6cm,clip=true,angle=0]{tabla_exponentes.pdf}
-\end{center}
-\caption{Table 2: MSD and $P(d)$ exponents for each tortoise, separated by males and females, calculated using all available data without separation by periods.}
-\label{tabla2}
-\end{figure}
+
+\section{Computer Simulations}
+
+LUCIANO: here explain that you simulated steps of 1,7s and then how did you agregated in periods of 15minutes....
 
 
-\subsection{First configuration: constant walking time}
+\subsection{First case: constant walking time, power law rest time}
+\label{sec:first-case}
 
-Figure \ref{fig:Distribucion_cteW} shows several displacement distributions, with $\sigma_\theta=0.2$ and a constant walking time
+Figure \ref{Sfig:Distribucion_cteW} shows several displacement distributions, with $\sigma_\theta=0.2$ and a constant walking time
 $T_{\text{walk}}=10 \text{ t.s.}$ (time steps, i.e., 10 simulation steps) for all three curves. What varies between the curves is the
 exponent of the rest-time distribution.
 
@@ -429,7 +368,7 @@ exponent of the rest-time distribution.
     \centering
     \includegraphics[width=0.7\textwidth]{Delta_distance_Fixed_walk_times.png}
     \caption{Displacement distribution for the first model, with constant walking time.}
-    \label{fig:Distribucion_cteW}
+    \label{Sfig:Distribucion_cteW}
 \end{figure}
 
 In this figure, we observe that the displacement distributions exhibit characteristic distances that are approximately multiples of
@@ -444,10 +383,10 @@ behavior observed in the tortoises, and we therefore discard it.
 
 
 
-\subsection{Second configuration: constant walking time}
+\subsection{Second case: power law walking time, constant rest time}
 
 
-In the second configuration, we kept the rest time constant and let the walking time follow a power law. The displacement distribution for different rest times is shown in Figure \ref{fig:Distribucion_cteS}, keeping the walking-time exponent and $\sigma_\theta$ fixed.
+In the second configuration, we kept the rest time constant and let the walking time follow a power law. The displacement distribution for different rest times is shown in Figure \ref{Sfig:Distribucion_cteS}, keeping the walking-time exponent and $\sigma_\theta$ fixed.
 
 \begin{figure}[!h]
     \centering
@@ -470,7 +409,7 @@ MSD produced with this model is shown in Figure \ref{fig:MSD_cteS}.
 
 All the simulations exhibit a superdiffusive behavior at the begining and crosses over to diffusive behavior at longer times. 
 
-\subsection{Third configuration: constant walking time}
+\subsection{Third case: power law walking time, power law rest time}
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.7\textwidth]{Delta_distance_PL_Exponents.png}
