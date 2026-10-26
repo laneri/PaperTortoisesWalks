@@ -35,12 +35,35 @@ sasa
 
 
 \section*{Introduction}
-Animal trajectories are the result of a complex interplay between internal and external factors, including the animal's physiological state, environmental conditions, and interactions with other individuals. Understanding the mechanisms underlying movement patterns is crucial for predicting animal behavior, managing wildlife populations, and conserving biodiversity. 
-How animals take decisions about when and where to move is a fundamental question in ecology and behavioral biology. Movement patterns can be influenced by a variety of factors, including resource availability, predation risk, social interactions, and environmental conditions. In this study, we focus on the South American tortoise Chelonoidis chilensis, a species that is classified as endangered. As a reptile, it is ectothermic and relies on external sources of heat to regulate its body temperature. This makes it particularly sensitive to environmental conditions, which can influence its movement patterns and behavior.
-By performing comuter simulations is possible to explore the effects of different factors on movement patterns and to identify candidate mechanisms that drive these patterns. 
-Previous studies showed that tortoises movement is subdiffusive which suggests.... 
+Understanding the mechanisms underlying animal trajectories is crucial for predicting animal behavior, managing wildlife populations, and conserving biodiversity. They are the result of a complex interplay between internal and external factors, including the animal's physiological state, environmental conditions, and interactions with other individuals.
+Empirical evidence of Lévy-walks has been reported, among others, for micro-organisms, bumblebees, spider monkeys, marine predators and humans \cite{boyer2009}. Human individuals also display multiple scale displacements well described by truncated power-laws \cite{gonzalez2009}. It has been proposed that the origin of those power law step size distribution emerge after performing a food search following a cognitive map, with some spots visited with a weight that depends on the distance to the spot and the amount of food available \cite{boyer2009}. For instance, previous studies of deer foraging in non patchy habitats found a powerlaw like distribution of step sizes that were succesfully modeled as a combination of a random search for food, coupled with a threshold in the selection of foraging stations \cite{focardi1996}. In general this hypothesis relies on the idea that the distribution of time intervals characterizing the dynamics of many behaviors is scale invariant, with negative exponents ranging from 0,97--2,7 \cite{proekt2012}.
+Other studies have suggested that the observed scaling laws in animal movement patterns may arise from the animal's foraging strategy, where they optimize their search for resources by adopting a Lévy walk pattern. Those studies have reported an slope of $\approx -2$ for the step size distribution \cite{viswanathan1999}.  
 
-By analyzing GPS tracking data collected over several camàigns, we aim to uncover the statistical properties of their movement patterns and identify potential factors influencing their behavior. 
+
+For the case of reptiles, like tortoises, waiting times are very related to the need to sunbasking as this ectothermic animals depend on sun radiation to thermoregulate their body temperature. The waiting times are also related to the need to rest and digest food, as well as to avoid predators \cite{}. The step size distribution is related to the need to find food, water, and mates, as well as to avoid predators and other threats \cite{}. The movement patterns of tortoises are also influenced by their social behavior, as they may move in groups or follow the movements of other individuals \cite{madile}.
+
+
+Del paper de Boyer et. al : "The presence of scaling laws and power-law distributions in animal movement
+patterns is an ecological problem that has attracted considerable attention in the last
+decade [10]. Empirical evidence of Lévy-walks has been reported, among others, for
+micro-organisms [11], bumblebees [12], spider monkeys [13], marine predators [14].
+Similar patterns have also been observed in humans, as shown by studies on hunter-
+gatherers [15], bank notes [16] or fishermen boats [17]. Human individuals also display
+multiple scale displacements well described by truncated power-laws [18]. Most of the
+theoretical interpretations proposed to explain observations rely on the random walk
+hypothesis or some variant thereof: for example, the diffusion of bank notes is actually
+well described by a continuous time random walk model [16]."\\
+
+LUCIANO: chusmear papers de bumblebees, spider monkeys y marine predators.
+
+
+
+We study the movement trajectories of the South American tortoise \textit{Chelonoidis chilensis}, a species that is classified as endangered, in a pristine field. 
+By performing computer simulations is possible to explore the effects of different factors on movement patterns and to identify candidate mechanisms that drive these patterns. 
+Previous studies showed that tortoises movement is subdiffusive \cite{kazimierski2021} which suggests.... 
+
+By analyzing GPS tracking data collected over several campaigns, we aim to uncover the statistical properties of their movement patterns and identify potential factors influencing their behavior. 
+How animals take decisions about when and where to move is a fundamental question in ecology and behavioral biology. 
 
 
 \section*{Methodology}
@@ -50,7 +73,10 @@ We tracked six tortoises continuously during a whole year using GPS data loggers
 In this work we present analysis and results spanning a whole year, involving a total of 20149 hours of GPS data loggers recording. Those recorded geographical positions corresponded to 813 trajectories from 6 individuals. The GPS data loggers were charged every fifteen days except during the brumation period, when animals were not disturbed and were observed every two weeks to check if they remained brumating at the same location. All recorded trajectories were preprocessed to exclude those corresponding to speeds above a threshold of 15 m/min, assessed as a reasonable maximum speed for the species, according to the speed empirical distribution presented in Fig.S3. The distance traveled as a function of time was calculated from the $(\mathrm{latitude}, \mathrm{longitude})$ data using the Haversine function.
 For each behavioral period, we calculated the mean square displacement (MSD) as a function of time, defined as explained in the supplement and was averaged over all daily mesasurements.
 Additionally, accelerometer signal was classified into two states: walking and resting, using the random forest classification algorithm in Python and we calculated the distribution of step lengths and waiting times for each state. The distributions were fitted using maximum likelihood estimation, for each individual and behavioral period. The results were analyzed to identify patterns and differences between individuals, sexes, and behavioral periods.
-Here explain that accelerometer has signal every 1,7s while GPS has signal every 15 min. So we aggregated acc data to 15min following the crteria.....
+Here explain that accelerometer has signal every 1,7s while GPS has signal every 15 min. \\
+
+
+LUCIANO: explicar So we aggregated acc data to 15min following the crteria.....
 
 
 \section*{Results}
@@ -259,7 +285,7 @@ Finally, we can express the transition rate as:
 
 \section*{Discussion and Conclusions}
 
-The seasonal periods still need to be refined. Here, only the calendar months were considered, but factors such as temperature, late spring conditions, and related environmental variables should probably also be taken into account.
+
 This convergence to a difussive behaviour is mainly due to the maximum time for the power law distribution, which lets the difussive behaviour of the gaussian
 distribution of the angular variation to control the MSD functionality at longer times. Also the maximum distribution times allows for several switches between the states,
 if we had no maximum times, due to the exponents of the distribution we are analysing, we would have little movement of the tortoises. 
@@ -419,7 +445,7 @@ All the simulations exhibit a superdiffusive behavior at the begining and crosse
 
 
 
-
-
+\bibliographystyle{plain}
+\bibliography{bibliografia.bib}
 \end{document}
 
