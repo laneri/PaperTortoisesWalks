@@ -78,7 +78,14 @@ Here explain that accelerometer has signal every 1,7s while GPS has signal every
 
 
 LUCIANO: explicar So we aggregated acc data to 15min following the crteria.....
-
+LUCIANO: 
+To bridge the two time resolutions (1.7~s for the accelerometer and 15~min for the GPS), we proposed a stochastic Stop-and-Go model in which each simulation step corresponds to one
+accelerometer window (1.7~s). Each individual can be in one of two states, walking or resting. While resting, it neither moves nor rotates, so it keeps its heading. While walking,
+at every step it updates its heading as $\theta_{i+1} = \theta_i + \eta_i$, where $\eta_i$ is drawn from a Gaussian distribution with zero mean and standard deviation $\sigma_\theta$, a
+parameter of the model, and then moves a constant step of length $L = 1$ (arbitrary units) in the new direction. The time spent in each state is either constant or drawn from a
+truncated power-law distribution, $f(t) \propto t^{-\alpha}$ for $t_{\min} \le t \le t_{\max}$, with exponents $\alpha_W$ for walking and $\alpha_S$ for
+resting, which are parameters of the simulation. Finally, to compare with the distance travelled between consecutive GPS fixes, we recorded the net displacement every 530
+simulation steps (901~s $\approx$ 15~min).
 
 \section*{Results}
 

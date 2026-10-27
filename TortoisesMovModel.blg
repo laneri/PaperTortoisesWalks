@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: TortoisesMovModel.aux
+Reallocating 'name_of_file' (item size: 1) to 6 items.
+The style file: plain.bst
+Reallocating 'name_of_file' (item size: 1) to 17 items.
+Database file #1: bibliografia.bib
+Warning--I didn't find a database entry for ""
+Warning--I didn't find a database entry for "madile"
+Warning--I didn't find a database entry for "kazimierski2021"
+You've used 9 entries,
+            2118 wiz_defined-function locations,
+            566 strings with 5988 characters,
+and the built_in function-call counts, 3055 in all, are:
+= -- 294
+> -- 156
+< -- 0
++ -- 61
+- -- 52
+* -- 253
+:= -- 536
+add.period$ -- 28
+call.type$ -- 9
+change.case$ -- 54
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 96
+empty$ -- 223
+format.name$ -- 52
+if$ -- 612
+int.to.chr$ -- 0
+int.to.str$ -- 9
+missing$ -- 8
+newline$ -- 49
+num.names$ -- 18
+pop$ -- 35
+preamble$ -- 1
+purify$ -- 44
+quote$ -- 0
+skip$ -- 63
+stack$ -- 0
+substring$ -- 208
+swap$ -- 8
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 36
+warning$ -- 0
+while$ -- 27
+width$ -- 10
+write$ -- 104
+(There were 3 warnings)
