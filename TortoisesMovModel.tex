@@ -394,14 +394,15 @@ LUCIANO: here explain that you simulated steps of 1,7s and then how did you agre
 \subsection{First case: constant walking time, power law rest time}
 \label{sec:first-case}
 
-Figure \ref{Sfig:Distribucion_cteW} shows several displacement distributions, with $\sigma_\theta=0.2$ and a constant walking time
-$T_{\text{walk}}=10 \text{ t.s.}$ (time steps, i.e., 10 simulation steps) for all three curves. What varies between the curves is the
-exponent of the rest-time distribution.
+Figure \ref{Sfig:Distribucion_cteW} shows an example of displacement distributions, with an standar error for the gaussian angular variation before every walking step
+of $\sigma_\theta=0.25$; constant walking time $T_{\text{walk}}=19 \text{ t.s.}=32.3 s$ (time steps, i.e., 19 simulation steps), the number of simulation steps spent walking 
+was selected in order to mantain the same mean time spent on the walking state; and power law distribution $P(T_W)\propto T_W^{-\alpha_S}$for the time spent on stop state with an exponent of 
+$\alpha_S=1.1$
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.7\textwidth]{Delta_distance_Fixed_walk_times.png}
-    \caption{Displacement distribution for the first model, with constant walking time.}
+    \caption{Displacement distribution for the first model, with constant walking time$T_{\text{walk}}=32.3 s$, $\sigma_\theta=0.25$ and power law distribution for the time spent resting with $\alpha_S=1.1$.}
     \label{Sfig:Distribucion_cteW}
 \end{figure}
 
@@ -409,8 +410,7 @@ In this figure, we observe that the displacement distributions exhibit character
 $L\,T_{\text{walk}}$. Because the model adds Gaussian noise to the direction of motion, these characteristic values lie slightly below the
 aforementioned multiples, since the exact value is only attained when the individual moves in a straight line. These peaks correspond to a
 given number of walking bouts completed within the 15-minute window; for example, the first peak corresponds to a single walking bout, after
-which the individual remained at rest for the remainder of that window. As a consequence, these characteristic distances become blurred as
-the rest-time exponent $\alpha_S$ increases, since long rest times become less likely.
+which the individual remained at rest for the remainder of that window. 
 
 Given the discrepancy between the distributions obtained and the empirical distribution, we conclude that this model cannot reproduce the
 behavior observed in the tortoises, and we therefore discard it.
@@ -420,19 +420,18 @@ behavior observed in the tortoises, and we therefore discard it.
 \subsection{Second case: power law walking time, constant rest time}
 
 
-In the second configuration, we kept the rest time constant and let the walking time follow a power law. The displacement distribution for different rest times is shown in Figure \ref{Sfig:Distribucion_cteS}, keeping the walking-time exponent and $\sigma_\theta$ fixed.
+In the second configuration, we kept the rest time constant $T_S=3278\text{ t.s.} \approx 93 \text{min}$ and let distribution of probability of the walking time follow a power law with $\alpha_W=1.8$. 
+The example shown in Figure \ref{fig:Distribucion_cteS}, has the same angular variation as in the first configuration with $\sigma_\theta=0.25$.
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.7\textwidth]{Delta_distance_Fixed_stop_times.png}
-    \caption{Displacement distribution for the second model, with constant rest time.}
+    \caption{Displacement distribution for the second model, with constant rest time $T_S \approx 93 \text{min}$, $\sigma_\theta=0.25$ and the walking time follow a power law with $\alpha_W=1.8$.}
     \label{fig:Distribucion_cteS}
 \end{figure}
 
-Unlike the first model simulations, the distributions display power-law behavior, and they converge to the same
-distribution once the rest times exceed the duration of the analyzed window (15 minutes). This configuration reproduces the power-law
-behavior with exponent $\alpha_d \approx 2$ observed in the tortoises for rest times longer than 500 seconds. The
-MSD produced with this model is shown in Figure \ref{fig:MSD_cteS}.
+Unlike the first model simulations, the distributions display power-law behavior behavior with exponent $\alpha_d \approx 2$ observed in the tortoises.
+The MSD produced with this model is shown in Figure \ref{fig:MSD_cteS}.
 
 \begin{figure}[!h]
     \centering
