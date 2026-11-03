@@ -1,0 +1,28 @@
+name: Compilar LaTeX a PDF
+
+on:
+  push:
+    branches:
+      - main  # Cambia a 'master' si tu rama principal se llama así
+    paths:
+      - '**.tex'  # Solo se ejecuta si cambia un archivo .tex
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Compilar LaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: TortoisesMovModel.tex  
+
+      - name: Subir PDF actualizado al repositorio
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@://github.com"
+          git add *.pdf
+          git commit -m "Automático: PDF actualizado por GitHub Actions" || echo "No hay cambios en el PDF"
+          git push
